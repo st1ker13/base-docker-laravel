@@ -14,9 +14,13 @@ services:
           - cnet
         volumes:
             - ../project/:/var/www
-            - ../project/docker/nginx/ssl:/etc/nginx/ssl
+            - ./docker/nginx/ssl:/etc/nginx/ssl
+        environment:
+          - VIRTUAL_HOST=dev.project.my
+          - VIRTUAL_PORT=443
         ports:
-            - "8080:443"
+            - 127.0.0.1:80:80
+            - 127.0.0.1:443:443
         links:
             - php-fpm
     php-fpm:
