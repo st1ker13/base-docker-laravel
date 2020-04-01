@@ -5,4 +5,4 @@ RUN apt-get update && apt-get install -y libmcrypt-dev default-mysql-client \
 	&& docker-php-ext-enable mcrypt \
     && docker-php-ext-install pdo_mysql
 
-WORKDIR /var/www
+WORKDIR /var/www/project

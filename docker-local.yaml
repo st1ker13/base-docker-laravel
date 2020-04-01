@@ -13,7 +13,7 @@ services:
         networks:
           - cnet
         volumes:
-            - ../project/:/var/www
+            - ../project:/var/www/project
             - ./docker/nginx/ssl:/etc/nginx/ssl
         environment:
           - VIRTUAL_HOST=dev.project.my
@@ -31,7 +31,7 @@ services:
         networks:
           - cnet
         volumes:
-            - ../project/:/var/www
+            - ../project:/var/www/project
         links:
             - mysql
             - redis
@@ -50,7 +50,7 @@ services:
         networks:
           - cnet
         volumes:
-            - ../project/:/var/www
+            - ../project:/var/www/project
         links:
             - mysql
             - redis
@@ -91,7 +91,7 @@ services:
         networks:
           - cnet
         volumes:
-            - ../project/:/var/www
+            - ../project/:/var/www/project
         tty: true
     # elasticsearch:
     #     image: docker.elastic.co/elasticsearch/elasticsearch:6.2.2
