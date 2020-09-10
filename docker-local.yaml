@@ -3,8 +3,8 @@ version: '3.7'
 networks:
   cnet:
     driver: bridge
-  es:
-    driver: bridge
+  # es:
+  #   driver: bridge
 
 services:
     nginx:
@@ -37,13 +37,13 @@ services:
         links:
             - mysql
             - redis
-            - elasticsearch
+            # - elasticsearch
         environment:
             - "DB_PORT=3306"
             - "DB_HOST=mysql"
             - "REDIS_PORT=6379"
             - "REDIS_HOST=redis"
-            - "ELASTICSEARCH_HOSTS=elasticsearch:9200"
+            # - "ELASTICSEARCH_HOSTS=elasticsearch:9200"
     php-cli:
         build:
             context: ./
@@ -56,13 +56,13 @@ services:
         links:
             - mysql
             - redis
-            - elasticsearch
+            # - elasticsearch
         environment:
             - "DB_PORT=3306"
             - "DB_HOST=mysql"
             - "REDIS_PORT=6379"
             - "REDIS_HOST=redis"
-            - "ELASTICSEARCH_HOSTS=elasticsearch:9200"
+            # - "ELASTICSEARCH_HOSTS=elasticsearch:9200"
         tty: true
     mysql:
         image: mysql:5.7
@@ -95,26 +95,26 @@ services:
         volumes:
             - ../project/:/var/www/project
         tty: true
-    elasticsearch:
-      build:
-        context: ./
-        dockerfile: docker/es.docker
-      container_name: main-es
-      environment:
-        - node.name=main-es
-        - cluster.name=docker-cluster
-        - cluster.initial_master_nodes=main-es
-        - bootstrap.memory_lock=true
-        - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-        - http.cors.enabled=true
-        - http.cors.allow-origin=*
-      ulimits:
-        memlock:
-          soft: -1
-          hard: -1
-      volumes:
-        - ../project/storage/docker/elasticsearch:/usr/share/elasticsearch/data
-      ports:
-        - 9200:9200
-      networks:
-        - es
+    # elasticsearch:
+    #   build:
+    #     context: ./
+    #     dockerfile: docker/es.docker
+    #   container_name: main-es
+    #   environment:
+    #     - node.name=main-es
+    #     - cluster.name=docker-cluster
+    #     - cluster.initial_master_nodes=main-es
+    #     - bootstrap.memory_lock=true
+    #     - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    #     - http.cors.enabled=true
+    #     - http.cors.allow-origin=*
+    #   ulimits:
+    #     memlock:
+    #       soft: -1
+    #       hard: -1
+    #   volumes:
+    #     - ../project/storage/docker/elasticsearch:/usr/share/elasticsearch/data
+    #   ports:
+    #     - 9200:9200
+    #   networks:
+    #     - es
